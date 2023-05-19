@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  myca:
+    container_name: myca
+    build:
+      context: .
+      dockerfile: Dockerfile.CA
+    hostname: myca
+    volumes:
+      - "./mkcert/:/root/"
+    tty: true
+    stdin_open: true
+  server:
+    container_name: server
+    build:
+      context: .
+      dockerfile: Dockerfile.server
+    ports:
+      - 8080:8080
+      - 443:443
+    volumes:
+      - ./captured/server:/captured/server
+      - ./server/cert:/server/cert
+
+  client:
+    container_name: client
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    ports:
+      - 8081:8081
+    volumes:
+      - ./client/cert:/client/cert
