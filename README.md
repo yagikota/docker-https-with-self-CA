@@ -21,7 +21,7 @@ docker-https-with-self-CA enables https communication between client and server.
 
 For https communication between Client and Server, a server certificate is required on the Server side and a root certificate of the CA is required on the Client side.
 
-### Step1. Create secret key and CSR at Server
+### Step1. Create secret key and CSR at server
 
 - Create private key(`server-key.pem`) and CSR(`server-req.pem`) of Server on Local. These files are mounted with the server container after the server is launched with docker compose.
 
@@ -68,7 +68,7 @@ For https communication between Client and Server, a server certificate is requi
     cp server/cert/server-req.pem mkcert/
     ```
 
-### Step4. Create a new certificate from CSR valid for Server
+### Step4. Create a new certificate from CSR valid for server
 
 - `server.pem` file is server certificate.
 
@@ -91,7 +91,7 @@ For https communication between Client and Server, a server certificate is requi
     cp mkcert/server.pem server/cert
     ```
 
-- Run Server
+- Run server.
 
     ``` shell
     make up-server
@@ -99,7 +99,7 @@ For https communication between Client and Server, a server certificate is requi
 
 ### Step6. Add rootCA certificate to Client
 
-- Run Client
+- Run client.
 
     ``` shell
     make up-client
@@ -111,13 +111,13 @@ For https communication between Client and Server, a server certificate is requi
     cp mkcert/.local/share/mkcert/rootCA.pem client/cert/
     ```
 
-- In the Client container, place the root certificate in the appropriate directory
+- In the Client container, place the root certificate in the appropriate directory.
 
     ``` shell
     docker compose exec client sh -c "cp client/cert/rootCA.pem  /etc/ssl/certs/"
     ```
 
-Throw https request from client to server
+Throw https request from client to server.
 
 ``` shell
 curl localhost:8081
@@ -133,7 +133,7 @@ make start-server-packet-capture
 
 - This command allows packet capture in the server container for 3 minutes.
 - During the 3 minutes, throw a request from the client to the server(`curl localhost:8081`).
-- The resulting pcap file will be output under the captured/server directory
+- The resulting pcap file will be output under the captured/server directory.
 - You can analyzed pcap files using [WireShark](https://www.wireshark.org/) or similar.
     ![WireShark](./docs/wireshark.png)
 
