@@ -34,16 +34,17 @@ For https communication between Client and Server, a server certificate is requi
 
 ### Step2. Create self CA using mkcert
 
-- Launch the CA Container(`myca`)
+- Run Server
 
     ``` shell
     make up-CA
-    docker compose exec myca /bin/bash
     ```
 
 - In `myca`, create self CA using `mkcert -install` command.
 
     ``` shell
+    docker compose exec myca /bin/bash
+
     root@myca:/# cd ~
     root@myca:~# pwd
     /root
@@ -55,15 +56,13 @@ For https communication between Client and Server, a server certificate is requi
 - Then, CA private key(`rootCA-key.pem`) and root CA certificate(`rootCA.pem`) are generated.
 
     ``` shell
-    root@myca:~/.local# tree
-    .local
-    ├── rootCA-key.pem
-    └── rootCA.pem
+    root@myca:~# ls .local/share/mkcert/
+    rootCA-key.pem	rootCA.pem
     ```
 
 ### Step3. Upload CSR to CA
 
-- Move the CSR file(`server-req.pem`) to the `mkcert` directory mounted inside the CA container(`myca`). In this way, the CSR file can be uploaded inside `myca` in a pseudo-style.
+- Copy the CSR(`server-req.pem`) to the `mkcert` directory mounted inside the CA container(`myca`). In this way, the CSR file can be uploaded inside `myca` in a pseudo-style.
 
     ``` shell
     cp server/cert/server-req.pem mkcert/
@@ -86,18 +85,44 @@ For https communication between Client and Server, a server certificate is requi
 
 ### Step5. Send the certificate to server
 
-- Move the certificate file(`server.pem`) to the `server/cert` directory mounted inside the server container(`server`). In this way, the certificate file can be send to `server` by CA(`myca`) in a pseudo-style.
+- Copy the server certificate(`server.pem`) to the `server/cert` directory mounted inside the server container(`server`). In this way, the certificate file can be send to `server` by CA(`myca`) in a pseudo-style.
 
     ``` shell
     cp mkcert/server.pem server/cert
     ```
 
+- Run Server
+
+    ``` shell
+    make up-server
+    ```
+
 ### Step6. Add rootCA certificate to Client
 
-- rootCA certificate created in
+- Run Client
+
+    ``` shell
+    make up-client
+    ```
+
+- Copy the root CA certificate(`rootCA.pem`) to the `client/cert/` directory mounted inside the Client container(`client`). In this way, the certificate can be send to `client` by CA(`myca`) in a pseudo-style.
+
+    ``` shell
+    cp mkcert/.local/share/mkcert/rootCA.pem client/cert/
+    ```
+
+- In the Client container, place the root certificate in the appropriate directory
+
+    ``` shell
+    docker compose exec client sh -c "cp client/cert/rootCA.pem  /etc/ssl/certs/"
+    ```
+
+
+Throw https request from client to server
 
 ``` shell
-docker compose exec client sh -c "cp client/cert/rootCA.pem >> /etc/ssl/certs/rootCA.pem"
+curl localhost:8081
+{"message":"Hello, World!, Current Time:2023/05/22 16:54:25"}
 ```
 
-###
+🐶 I hope this repository helps you studying self signed CA.

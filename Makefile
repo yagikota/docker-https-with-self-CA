@@ -1,9 +1,3 @@
-
-# add self root certificate to Client
-.PHONY: add-self-root-certificate
-add-self-root-certificate:
-	cat client/crt/rootCA.pem >> /etc/ssl/certs/ca-certificates.crt
-
 .PHONY: up-CA
 up-CA:
 	docker compose up myca -d --build
