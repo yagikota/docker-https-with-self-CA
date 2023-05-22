@@ -7,6 +7,8 @@ docker-https-with-self-CA enables https communication between client and server.
 - Using Docker compose
 - Using self certification authority(CA) with [mkcert](https://github.com/FiloSottile/mkcert)
 
+## 👟 Getting started
+
 ![diagram of https communication](./docs/docs.png)
 
 - Certificate Authority(CA)
@@ -18,8 +20,6 @@ docker-https-with-self-CA enables https communication between client and server.
   - `server.pem`: certificate valid for Server
 
 For https communication between Client and Server, a server certificate is required on the Server side and a root certificate of the CA is required on the Client side.
-
-## 👟 Getting started
 
 ### Step1. Create secret key and CSR at Server
 
