@@ -117,12 +117,23 @@ For https communication between Client and Server, a server certificate is requi
     docker compose exec client sh -c "cp client/cert/rootCA.pem  /etc/ssl/certs/"
     ```
 
-
 Throw https request from client to server
 
 ``` shell
 curl localhost:8081
 {"message":"Hello, World!, Current Time:2023/05/22 16:54:25"}
 ```
+
+
+## Packet Capture
+
+``` shell
+make start-server-packet-capture
+```
+
+- This command allows packet capture in the server container for 3 minutes.
+- During the 3 minutes, throw a request from the client to the server(`curl localhost:8081`).
+- The resulting pcap file will be output under the captured/server directory
+- You can analyzed pcap files using WireShark or similar.
 
 🐶 I hope this repository helps you studying self signed CA.
