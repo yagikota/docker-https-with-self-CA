@@ -125,7 +125,7 @@ curl localhost:8081
 ```
 
 
-## Packet Capture
+## 🦈 Packet Capture
 
 ``` shell
 make start-server-packet-capture
@@ -136,6 +136,12 @@ make start-server-packet-capture
 - The resulting pcap file will be output under the captured/server directory
 - You can analyzed pcap files using [WireShark](https://www.wireshark.org/) or similar.
     ![WireShark](./docs/wireshark.png)
+
+## 🍀 Reference
+- https://www.openssl.org/docs/man3.0/man1/openssl.html
+- https://github.com/FiloSottile/mkcert
+- https://dev.to/techschoolguru/how-to-create-sign-ssl-tls-certificates-2aai
+- https://github.com/luizhlelis/go-lang-https-self-signed
 
 
 
