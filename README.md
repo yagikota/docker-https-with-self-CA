@@ -134,6 +134,9 @@ make start-server-packet-capture
 - This command allows packet capture in the server container for 3 minutes.
 - During the 3 minutes, throw a request from the client to the server(`curl localhost:8081`).
 - The resulting pcap file will be output under the captured/server directory
-- You can analyzed pcap files using WireShark or similar.
+- You can analyzed pcap files using [WireShark](https://www.wireshark.org/) or similar.
+    ![WireShark](./docs/wireshark.png)
+
+
 
 🐶 I hope this repository helps you studying self signed CA.
