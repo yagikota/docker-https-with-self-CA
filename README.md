@@ -9,10 +9,19 @@ docker-https-with-self-CA enables https communication between client and server.
 
 ![diagram of https communication](./docs/docs.png)
 
+- Certificate Authority(CA)
+  - `rootCA-key.pem`: private key of CA
+  - `rootCA.pem`: root certificate of CA
+- Server
+  - `server-key.pem`: private key of Server
+  - `server-req.pem`: certificate signing request(CSR) of Server
+  - `server.pem`: certificate valid for Server
+
+For https communication between Client and Server, a server certificate is required on the Server side and a root certificate of the CA is required on the Client side.
 
 ## 👟 Getting started
 
-### Step1. Create secret key and certificate signing request(CSR) at Server
+### Step1. Create secret key and CSR at Server
 
 - Create private key(`server-key.pem`) and CSR(`server-req.pem`) of Server on Local. These files are mounted with the server container after the server is launched with docker compose.
 
@@ -91,4 +100,4 @@ docker-https-with-self-CA enables https communication between client and server.
 docker compose exec client sh -c "cp client/cert/rootCA.pem >> /etc/ssl/certs/rootCA.pem"
 ```
 
-### 
+###
