@@ -9,7 +9,7 @@ docker-https-with-self-CA enables https communication between client and server.
 
 ## 👟 Getting started
 
-![diagram of https communication](./docs/docs.png)
+![diagram of https communication](./docs/docs-fix.png)
 
 - Certificate Authority(CA)
   - `rootCA-key.pem`: private key of CA
