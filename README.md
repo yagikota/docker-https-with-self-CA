@@ -34,7 +34,7 @@ For https communication between Client and Server, a server certificate is requi
 
 ### Step2. Create self CA using mkcert
 
-- Run Server
+- Run CA
 
     ``` shell
     make up-CA
